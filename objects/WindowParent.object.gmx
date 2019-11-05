@@ -25,11 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>width = 250;
-height = 180;
+            <string>destWidth = 250;
+destHeight = 180;
 
-position[X] = 250;
-position[Y] = 250;
+width = 0;
+height = 0;
 
 border = 2;
 
@@ -38,9 +38,11 @@ top_most = false;
 
 Controller.activeLast = id;
 ds_list_add(Controller.windows, id);
+RearrangeWindows(Controller);
 
 controlPanelWidth = 32;
 
+state = "none";
 </string>
           </argument>
         </arguments>
@@ -65,6 +67,7 @@ controlPanelWidth = 32;
             <kind>1</kind>
             <string>pos = ds_list_find_index(Controller.windows, id);
 ds_list_delete(Controller.windows, pos);
+ArrangeWindows(Controller);
 </string>
           </argument>
         </arguments>
@@ -87,7 +90,8 @@ ds_list_delete(Controller.windows, pos);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (mouse_check_button_pressed(mb_left) &amp;&amp; point_in_rectangle(mouse_x, mouse_y, x+border, y+border, x+width-border-controlPanelWidth, y+HEADER_HEIGHT)) {
+            <string>// code for moving the window around
+if (mouse_check_button_pressed(mb_left) &amp;&amp; point_in_rectangle(mouse_x, mouse_y, x+border, y+border, x+width-border-controlPanelWidth, y+HEADER_HEIGHT)) {
     mouseInsideWindow = false;
     window = id;
     for (i = 0; i &lt; ds_list_size(Controller.windows) &amp;&amp; !mouseInsideWindow; i++) {
@@ -104,35 +108,48 @@ ds_list_delete(Controller.windows, pos);
     if (!mouseInsideWindow || id.depth &lt; window.depth) {
         gripped = id;
         Controller.activeLast = id;
-        with (Controller) {
-            buf = activeLast;
-            for (j = ds_list_find_index(windows, activeLast); j &gt; 0; j--) {
-                windows[| j] = windows[| j-1];
-            }
-            windows[| 0] = activeLast;
-        }
+        RearrangeWindows(Controller);
         
         grip_offset_x = mouse_x - x;
         grip_offset_y = mouse_y - y;
     }
 }
-
 if (gripped == id) {
     x = mouse_x - grip_offset_x;
     y = mouse_y - grip_offset_y;
     
     x = clamp(x, 0 - width + border + 10, room_width - border - 10);
-    y = clamp(y, 0, room_height - HEADER_HEIGHT - border);
+    y = clamp(y, 0, room_height - HEADER_HEIGHT - border - TASKBAR_HEIGHT);
 }
 
+// code for closing the window
+if (mouse_check_button_pressed(mb_left) &amp;&amp;
+    point_in_rectangle(mouse_x, mouse_y, x+border+width-controlPanelWidth, y+border, x+width-border, y+HEADER_HEIGHT) &amp;&amp;
+    Controller.activeLast == id)
+{
+    state = "destroying";
+}
+if (state == "destroying") {
+    if (DiminishWindow(id)) {
+        instance_destroy();
+    }
+}
+
+// code for releasing the window
 if (mouse_check_button_released(mb_left) &amp;&amp; gripped == id) {
     gripped = false;
 }
 
-/*if (!(Controller.activeLast == id)) {
-    depth = INACTIVE_WINDOW;
+// code for resizing the window
+if (width &lt; destWidth) {
+    width += 64;
+    width = clamp(width, 32, destWidth);
 }
-*/
+if (height &lt; destHeight) {
+    height += 44;
+    height = clamp(height, 32, destHeight);
+}
+
 </string>
           </argument>
         </arguments>
@@ -155,11 +172,18 @@ if (mouse_check_button_released(mb_left) &amp;&amp; gripped == id) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour(c_ltgray);
+            <string>if (Controller.activeLast == id) {
+    draw_set_colour(c_black);
+    draw_set_alpha(.5);
+    draw_rectangle(x+5, y+5, x+width+5, y+height+5, false);
+}
+draw_set_alpha(1);
+
+draw_set_colour(c_ltgray);
 draw_rectangle(x, y, x+width, y+height, false);
 
 if (Controller.activeLast == id) {
-    draw_set_colour(c_navy);
+    draw_set_colour(c_maroon);
 } else {
     draw_set_colour(c_dkgray);
 }
@@ -175,6 +199,7 @@ draw_rectangle(x-border+1, y-border+1, x+width+border-1, y+height+border-1, true
 
 draw_set_colour(c_white);
 draw_text(x+width-controlPanelWidth+16, y+4, "X");
+
 </string>
           </argument>
         </arguments>

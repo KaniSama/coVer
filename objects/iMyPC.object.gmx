@@ -70,7 +70,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(x, y, WindowMain);
+            <string>xx = Controller.positions[# 0, global.nextWindowPosition];
+yy = Controller.positions[# 1, global.nextWindowPosition];
+
+global.nextWindowPosition++;
+
+if (global.nextWindowPosition &gt;= ds_grid_height(Controller.positions)) {
+    global.nextWindowPosition = 0;
+}
+instance_create(xx, yy, WindowMain);
 </string>
           </argument>
         </arguments>

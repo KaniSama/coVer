@@ -26,6 +26,44 @@
           <argument>
             <kind>1</kind>
             <string>activeLast = id;
+positions = ds_grid_create(2, 6);
+
+/*for (i = 0; i &lt; ds_grid_height(positions); i++) {
+    positions[# 0, i] = i * 64 + 128;
+    positions[# 1, i] = i * 64 + 128;
+}*/
+
+alarm[0] = 30;
+
+global.nextWindowPosition = 0;
+
+border = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>for (i = 0; i &lt; ds_grid_height(positions); i++) {
+    positions[# 0, i] = i * 64 + 128;
+    positions[# 1, i] = i * 64 + 128;
+}
 </string>
           </argument>
         </arguments>
@@ -52,7 +90,44 @@
     windows[| i].depth = i;
 }
 
-activeLast.depth = ACTIVE_WINDOW;
+activeLast.depth = -1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>lastIndex = -1;
+if (!ds_list_empty(windows)) {
+    for (i = ds_list_size(windows)-1; i &gt;= 0; i--) {
+        ai = windows[| i];
+        if (point_in_rectangle(mouse_x, mouse_y, ai.x, ai.y, ai.x+ai.width, ai.y+ai.height)) {
+            lastIndex = i;
+        }
+    }
+    if (lastIndex &gt;= 0) {
+        activeLast = windows[| lastIndex];
+        RearrangeWindows(self);
+    }
+}
+
+
 </string>
           </argument>
         </arguments>
@@ -76,6 +151,34 @@ activeLast.depth = ACTIVE_WINDOW;
           <argument>
             <kind>1</kind>
             <string>room_speed = 60;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_colour(c_ltgray);
+draw_rectangle(0+border, room_height-TASKBAR_HEIGHT,
+    room_width-border, room_height-border, false);
+
+draw_set_colour(c_black);
+draw_rectangle(0, room_height-TASKBAR_HEIGHT-border, room_width, room_height, true);
 </string>
           </argument>
         </arguments>

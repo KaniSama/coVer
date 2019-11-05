@@ -10,6 +10,10 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\RearrangeWindows.gml</script>
+    <script>scripts\DiminishWindow.gml</script>
+  </scripts>
   <objects name="objects">
     <objects name="ControlElements">
       <object>objects\Controller</object>
@@ -20,7 +24,6 @@
     </objects>
     <object>objects\iMyPC</object>
   </objects>
-  <timelines name="timelines"/>
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
