@@ -5,9 +5,25 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprite>sprites\sMyPC</sprite>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <objects name="objects">
+    <objects name="ControlElements">
+      <object>objects\Controller</object>
+    </objects>
+    <objects name="Windows">
+      <object>objects\WindowParent</object>
+      <object>objects\WindowMain</object>
+    </objects>
+    <object>objects\iMyPC</object>
+  </objects>
+  <timelines name="timelines"/>
+  <rooms name="rooms">
+    <room>rooms\room0</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>
