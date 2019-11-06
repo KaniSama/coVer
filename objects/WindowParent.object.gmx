@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>destWidth = 250;
+            <string>///window properties
+
+destWidth = 250;
 destHeight = 180;
 
 width = 0;
@@ -41,8 +43,35 @@ ds_list_add(Controller.windows, id);
 RearrangeWindows(Controller);
 
 controlPanelWidth = 32;
+padding = 16;
 
-state = "none";
+state = "opening";
+
+//button = "none";
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// window contents
+content = surface_create(width-padding-padding, height-padding-padding);
+contentX = x+padding;
+contentY = y+padding+HEADER_HEIGHT;
 </string>
           </argument>
         </arguments>
@@ -68,6 +97,10 @@ state = "none";
             <string>pos = ds_list_find_index(Controller.windows, id);
 ds_list_delete(Controller.windows, pos);
 ArrangeWindows(Controller);
+
+if (surface_exists(content)) {
+    surface_free(content);
+}
 </string>
           </argument>
         </arguments>
@@ -122,18 +155,7 @@ if (gripped == id) {
     y = clamp(y, 0, room_height - HEADER_HEIGHT - border - TASKBAR_HEIGHT);
 }
 
-// code for closing the window
-if (mouse_check_button_pressed(mb_left) &amp;&amp;
-    point_in_rectangle(mouse_x, mouse_y, x+border+width-controlPanelWidth, y+border, x+width-border, y+HEADER_HEIGHT) &amp;&amp;
-    Controller.activeLast == id)
-{
-    state = "destroying";
-}
-if (state == "destroying") {
-    if (DiminishWindow(id)) {
-        instance_destroy();
-    }
-}
+
 
 // code for releasing the window
 if (mouse_check_button_released(mb_left) &amp;&amp; gripped == id) {
@@ -141,14 +163,44 @@ if (mouse_check_button_released(mb_left) &amp;&amp; gripped == id) {
 }
 
 // code for resizing the window
-if (width &lt; destWidth) {
-    width += 64;
-    width = clamp(width, 32, destWidth);
+if (state == "opening") {
+    if (width != destWidth || height != destHeight) {
+        if (width &lt; destWidth) {
+            width += 64;
+            width = clamp(width, 32, destWidth);
+        }
+        if (height &lt; destHeight) {
+            height += 44;
+            height = clamp(height, 32, destHeight);
+        }
+    } else {
+        state = "opened";
+    }
 }
-if (height &lt; destHeight) {
-    height += 44;
-    height = clamp(height, 32, destHeight);
+
+contentX = x+padding;
+contentY = y+padding+HEADER_HEIGHT;
+
+// code for closing the window
+if (mouse_check_button_pressed(mb_left) &amp;&amp;
+    point_in_rectangle(mouse_x, mouse_y, x+border+width-controlPanelWidth, y+border, x+width-border, y+HEADER_HEIGHT) &amp;&amp;
+    Controller.activeLast == id)
+{
+    state = "closing";
 }
+if (surface_exists(content) &amp;&amp; state == "closing") {
+    surface_free(content);
+}
+if (state == "closing") {
+    if (DiminishWindow(id)) {
+        instance_destroy();
+    }
+}
+
+
+
+
+
 
 </string>
           </argument>
@@ -198,7 +250,20 @@ if (Controller.activeLast == id) {
 draw_rectangle(x-border+1, y-border+1, x+width+border-1, y+height+border-1, true);
 
 draw_set_colour(c_white);
-draw_text(x+width-controlPanelWidth+16, y+4, "X");
+draw_set_font(CommieFont);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_text(x+width-controlPanelWidth+16, y+4, "/");
+
+surface_set_target(content);
+    if (state == "opened") {
+        draw_set_colour(c_white);
+        draw_rectangle(contentX, contentY, x+width-padding, y+height-padding, false);
+    }
+surface_reset_target();
+
+surface_set_target(application_surface);
+    //draw_surface(content, contentX, contentY);
 
 </string>
           </argument>

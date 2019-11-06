@@ -3,7 +3,10 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\CRT Pixel Shader</extension>
+    <extension index="1">extensions\Chromatic Aberration Shader</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\sMyPC</sprite>
@@ -14,14 +17,30 @@
   <scripts name="scripts">
     <script>scripts\RearrangeWindows.gml</script>
     <script>scripts\DiminishWindow.gml</script>
+    <script>scripts\Gibberish.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\sh_CRT_Windows.shader</shader>
+    <shader type="GLSLES">shaders\sh_aberration.shader</shader>
+  </shaders>
+  <fonts name="fonts">
+    <font>fonts\CommieFont</font>
+    <font>fonts\KREMLIN</font>
+  </fonts>
   <objects name="objects">
     <objects name="ControlElements">
       <object>objects\Controller</object>
+      <object>objects\ShaderCRT</object>
+      <object>objects\ShaderAberration</object>
+      <object>objects\Taskbar</object>
+      <object>objects\GameSettings</object>
     </objects>
     <objects name="Windows">
       <object>objects\WindowParent</object>
-      <object>objects\WindowMain</object>
+      <object>objects\WindowMessage</object>
+    </objects>
+    <objects name="WindowElements">
+      <object>objects\ButtonParent</object>
     </objects>
     <object>objects\iMyPC</object>
   </objects>
