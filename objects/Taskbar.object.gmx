@@ -26,6 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>border = 1;
+
+CloseAll = instance_create(1184, 704, ButtonParent);
+CloseAll.text = "CLOSE ALL WINDOW";
+CloseAll.action = CloseAllWindows;
 </string>
           </argument>
         </arguments>

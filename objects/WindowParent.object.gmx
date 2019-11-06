@@ -257,7 +257,7 @@ draw_text(x+width-controlPanelWidth+16, y+4, "/");
 
 surface_set_target(content);
     if (state == "opened") {
-        draw_set_colour(c_white);
+        draw_set_colour(c_ltgray);
         draw_rectangle(contentX, contentY, x+width-padding, y+height-padding, false);
     }
 surface_reset_target();

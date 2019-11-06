@@ -35,10 +35,13 @@ height = 0;
 
 button = instance_create(x + destWidth/2., y+destHeight-padding-padding, ButtonParent);
 button.parent = id;
+button.action = CloseWindow;
+button.target[0] = id;
 
 buttonOffsetX = destWidth/2.;
 buttonOffsetY = destHeight-padding-padding;
 
+//text = "Something went horribly wrong.";
 text = Gibberish(255);
 </string>
           </argument>
@@ -128,6 +131,7 @@ if (instance_exists(button)) {
 surface_set_target(content);
     if (state == "opened") {
         draw_set_colour(c_black);
+        draw_set_font(CommieFont);
         draw_text_ext(contentX, contentY, text, 12, width-padding*2);
     }
 surface_reset_target();
