@@ -103,6 +103,7 @@ instance_create(xx, yy, WindowMessage);
             <kind>1</kind>
             <string>draw_sprite_ext(sprite_index, 0, x + 3, y + 3, 1, 1, 0, c_black, .3);
 draw_self();
+draw_set_colour(c_black);
 draw_set_halign(fa_middle);
 draw_set_valign(fa_top);
 //draw_set_colour(c_maroon);

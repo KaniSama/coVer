@@ -41,8 +41,8 @@ button.target[0] = id;
 buttonOffsetX = destWidth/2.;
 buttonOffsetY = destHeight-padding-padding;
 
-//text = "Something went horribly wrong.";
-text = Gibberish(255);
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+//text = Gibberish(255);
 </string>
           </argument>
         </arguments>
@@ -132,7 +132,7 @@ surface_set_target(content);
     if (state == "opened") {
         draw_set_colour(c_black);
         draw_set_font(CommieFont);
-        draw_text_ext(contentX, contentY, text, 12, width-padding*2);
+        draw_text_ext(contentX, contentY, text, 12, width-padding*3);
     }
 surface_reset_target();
 surface_set_target(application_surface);

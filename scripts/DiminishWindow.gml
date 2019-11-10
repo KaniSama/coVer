@@ -5,9 +5,9 @@ ww = argument[0].width;
 dw = 32;
 dh = 32;
 
-if (wh > dh) wh -= 64;
+if (wh > dh) wh -= 32;
 else return true;
-if (ww > dw) ww -= 128;
+if (ww > dw) ww -= 64;
 else return true;
 
 argument[0].height = wh;

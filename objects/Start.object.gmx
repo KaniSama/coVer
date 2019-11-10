@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>1</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,20 +25,18 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>border = 1;
+            <string>visible = false;
+active = false;
 
-CloseAll = instance_create(1184, y, ButtonParent);
-CloseAll.text = "CLOSE ALL WINDOW";
-CloseAll.action = CloseAllWindows;
+width = 240;
 
-StartMenu = instance_create(x, y-16, Start);
+menu = array_create(4);
+menulength = array_length_1d(menu);
+entryheight = 24;
 
-StartMenuButton = instance_create(x+58, y, ButtonParent);
-StartMenuButton.text = "Start";
-StartMenuButton.width = 100;
-StartMenuButton.halfwidth = 50;
-StartMenuButton.action = ToggleStartMenu;
-StartMenuButton.target[0] = StartMenu;
+menuheight = menulength*entryheight;
+
+y = y - menuheight;
 </string>
           </argument>
         </arguments>
@@ -61,12 +59,16 @@ StartMenuButton.target[0] = StartMenu;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour(c_ltgray);
-draw_rectangle(0+border, room_height-TASKBAR_HEIGHT,
-    room_width-border, room_height-border, false);
-
+            <string>for (i = 0; i &lt; menulength; i++) {
+    a = irandom_range(0,3);
+    if (i == a)
+        draw_set_colour(c_dkgray);
+    else 
+        draw_set_colour(c_ltgray);
+    draw_rectangle(x, y+i*entryheight, x+width, y+(i+1)*entryheight, false);
+}
 draw_set_colour(c_black);
-draw_rectangle(0, room_height-TASKBAR_HEIGHT-border, room_width, room_height, true);
+draw_rectangle(x, y, x+width, y+menuheight, true)
 </string>
           </argument>
         </arguments>

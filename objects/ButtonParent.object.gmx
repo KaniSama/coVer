@@ -37,6 +37,8 @@ parent = id;
 
 action = ButtonAction;
 target[0] = id;
+
+depth = 0;
 </string>
           </argument>
         </arguments>
@@ -59,7 +61,8 @@ target[0] = id;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>depth = parent.depth - 1;
+            <string>if (parent.id != id)
+    depth = parent.depth - 1;
 
 if (mouse_check_button_released(mb_left) &amp;&amp;
     point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
@@ -114,7 +117,8 @@ if (mouse_check_button_released(mb_left) &amp;&amp;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight)) {
+            <string>if (point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
+    Controller.activeLast == parent) {
     draw_set_colour(c_white);
     draw_rectangle(x-halfwidth, y-halfheight, x+halfwidth, y+halfheight, false);
 } else {
