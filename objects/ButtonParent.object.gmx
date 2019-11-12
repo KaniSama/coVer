@@ -61,12 +61,12 @@ depth = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (parent.id != id)
+            <string>if (parent != id)
     depth = parent.depth - 1;
 
 if (mouse_check_button_released(mb_left) &amp;&amp;
     point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
-    (parent.id == id || parent.id == Controller.activeLast)) {
+    (parent == id || parent == Controller.activeLast)) {
     script_execute(action, target[0]);
 }
 </string>
@@ -118,7 +118,7 @@ if (mouse_check_button_released(mb_left) &amp;&amp;
           <argument>
             <kind>1</kind>
             <string>if (point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
-    Controller.activeLast == parent) {
+    (Controller.activeLast == parent || parent == id)) {
     draw_set_colour(c_white);
     draw_rectangle(x-halfwidth, y-halfheight, x+halfwidth, y+halfheight, false);
 } else {
