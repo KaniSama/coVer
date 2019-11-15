@@ -72,6 +72,8 @@ state = "opening";
 content = surface_create(width-padding-padding, height-padding-padding);
 contentX = x+padding;
 contentY = y+padding+HEADER_HEIGHT;
+
+contents = ds_list_create();
 </string>
           </argument>
         </arguments>
@@ -255,6 +257,7 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_text(x+width-controlPanelWidth+16, y+4, "/");
 
+if (surface_exists(content))
 surface_set_target(content);
     if (state == "opened") {
         draw_set_colour(c_ltgray);
@@ -265,6 +268,34 @@ surface_reset_target();
 surface_set_target(application_surface);
     //draw_surface(content, contentX, contentY);
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw the window contents
+if (!ds_list_empty(contents)) {
+    map = ds_list_find_value(contents, 0);
+    surface_set_target(content);
+    draw_sprite(map[? "Content"], 0, map[? "X"], map[? "Y"]);
+    surface_reset_target();
+    surface_set_target(application_surface);
+}
 </string>
           </argument>
         </arguments>
