@@ -36,6 +36,7 @@
   <fonts name="fonts">
     <font>fonts\CommieFont</font>
     <font>fonts\KREMLIN</font>
+    <font>fonts\KREMLINBOLD</font>
   </fonts>
   <objects name="objects">
     <objects name="ControlElements">
@@ -47,9 +48,12 @@
     <objects name="Windows">
       <object>objects\WindowParent</object>
       <object>objects\WindowMessage</object>
+      <object>objects\WindowProfile</object>
     </objects>
     <objects name="WindowElements">
       <object>objects\ButtonParent</object>
+      <object>objects\ProfilePhoto</object>
+      <object>objects\ProfileText</object>
     </objects>
     <object>objects\iMyPC</object>
     <objects name="Shaders">

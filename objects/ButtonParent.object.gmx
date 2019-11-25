@@ -66,7 +66,7 @@ depth = 0;
 
 if (mouse_check_button_released(mb_left) &amp;&amp;
     point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
-    (parent == id || parent == Controller.activeLast)) {
+    (parent == id || parent == Controller.activeLast || parent == global.taskbar)) {
     script_execute(action, target[0]);
 }
 </string>
@@ -118,7 +118,7 @@ if (mouse_check_button_released(mb_left) &amp;&amp;
           <argument>
             <kind>1</kind>
             <string>if (point_in_rectangle(mouse_x, mouse_y, x-halfwidth, y-halfheight, x+halfwidth, y+halfheight) &amp;&amp;
-    (Controller.activeLast == parent || parent == id)) {
+    (parent == id || parent == Controller.activeLast || parent == global.taskbar)) {
     draw_set_colour(c_white);
     draw_rectangle(x-halfwidth, y-halfheight, x+halfwidth, y+halfheight, false);
 } else {

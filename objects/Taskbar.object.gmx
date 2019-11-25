@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>1</depth>
+  <depth>-15</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -30,6 +30,7 @@
 CloseAll = instance_create(1184, y, ButtonParent);
 CloseAll.text = "CLOSE ALL WINDOW";
 CloseAll.action = CloseAllWindows;
+CloseAll.parent = id;
 
 StartMenu = instance_create(x, y-16, Start);
 
@@ -39,6 +40,9 @@ StartMenuButton.width = 100;
 StartMenuButton.halfwidth = 50;
 StartMenuButton.action = ToggleStartMenu;
 StartMenuButton.target[0] = StartMenu;
+StartMenuButton.parent = id;
+
+global.taskbar = id;
 </string>
           </argument>
         </arguments>
