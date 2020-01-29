@@ -73,6 +73,9 @@ photo.parent = id;
 
 text = instance_create(x + padding + 128 + 32, y + padding + HEADER_HEIGHT, ProfileText);
 text.parent = id;
+text.Age = irandom_range(15, 78);
+text.Name = choose("Jack", "Jackoff", "Jackass");
+text.Sex = choose("M", "F");
 
 ds_list_add(contents, photo);
 ds_list_add(contents, text);
